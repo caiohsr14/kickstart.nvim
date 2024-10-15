@@ -690,9 +690,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
+        python = { 'isort' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
@@ -936,7 +934,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>3', function()
         harpoon:list():select(3)
       end)
-      vim.keymap.set('n', '<leader>1', function()
+      vim.keymap.set('n', '<leader>4', function()
         harpoon:list():select(4)
       end)
 
