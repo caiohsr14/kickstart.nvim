@@ -368,7 +368,7 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        pickers = { find_files = { hidden = true } },
+        -- pickers = { find_files = { hidden = true } },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -604,7 +604,12 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        pyright = {},
+        pyright = {
+          settings = {
+            python = { analysis = { diagnosticMode = 'openFilesOnly' } },
+          },
+        },
+        tflint = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -614,6 +619,7 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        elixirls = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -684,10 +690,18 @@ require('lazy').setup({
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, cpp = true }
         return {
-          timeout_ms = 500,
+          timeout_ms = 1500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
+      formatters = {
+        yapf = {
+          args = {
+            '--style',
+            '{based_on_style: pep8, column_limit: 120, indent_dictionary_value: false, indent_width: 2}',
+          },
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'isort', 'yapf' },
