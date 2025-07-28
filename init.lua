@@ -653,18 +653,7 @@ require('lazy').setup({
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      require('mason-lspconfig').setup()
     end,
   },
 
@@ -993,14 +982,14 @@ require('lazy').setup({
     -- order to load the plugin when the command is run for the first time
     keys = {
       { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+      { '<leader>lgh', '<cmd>LazyGitFilterCurrentFile<cr>', desc = 'LazyGitFilterCurrentFile' },
     },
   },
   {
-    'rcarriga/nvim-dap-ui',
-    dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
+    'igorlfs/nvim-dap-view',
+    dependencies = { 'mfussenegger/nvim-dap' },
     config = function()
-      local dap, dapui = require 'dap', require 'dapui'
-      dapui.setup()
+      local dap, dapui = require 'dap', require 'dap-view'
       dap.listeners.before.attach.dapui_config = function()
         dapui.open()
       end
