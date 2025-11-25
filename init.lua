@@ -333,7 +333,7 @@ require('lazy').setup({
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
       {
         'nvim-telescope/telescope-live-grep-args.nvim',
-        version = 'ˆ1.0.0',
+        version = '^1.0.0',
       },
     },
     config = function()
@@ -604,11 +604,7 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         -- gopls = {},
-        pyright = {
-          settings = {
-            python = { analysis = { diagnosticMode = 'openFilesOnly' } },
-          },
-        },
+        pyright = {},
         terraformls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -620,6 +616,7 @@ require('lazy').setup({
         -- tsserver = {},
         --
         elixirls = {},
+        ts_ls = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -1021,7 +1018,7 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap-python',
     config = function()
-      require('dap-python').setup '/Users/caio/.pyenv/versions/2.7.17-default/bin/python'
+      require('dap-python').setup()
     end,
   },
   ---@type LazySpec
